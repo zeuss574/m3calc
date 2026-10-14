@@ -1,0 +1,1165 @@
+/**
+ * Material 3 Expressive Scientific Calculator Styles
+ * Implements Google Sans Flex ROND 100, dynamic tonal palettes,
+ * spring-based tactile motion, and responsive dual-pane layout.
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-variation-settings: 'ROND' 100, 'opsz' 20, 'wght' 500;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  overflow-x: hidden;
+  transition: background-color var(--motion-duration-long) var(--motion-easing-standard),
+              color var(--motion-duration-long) var(--motion-easing-standard);
+  user-select: none;
+}
+
+/* Material Symbols Rounded font settings */
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ==========================================================================
+   App Shell & Card Container
+   ========================================================================== */
+.calculator-app {
+  width: 100%;
+  max-width: 960px;
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--shape-2xl);
+  box-shadow: var(--elevation-3);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  transition: all var(--motion-duration-medium) var(--motion-easing-standard);
+}
+
+/* ==========================================================================
+   Top App Bar
+   ========================================================================== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: var(--md-sys-color-surface-container-low);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  gap: 12px;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--md-sys-color-on-surface);
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.brand-badge {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--shape-full);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Layout Segmented Switch (Basic vs Full Button Switcher)
+   ========================================================================== */
+.layout-segmented-switch {
+  display: inline-flex;
+  background-color: var(--md-sys-color-surface-container-highest);
+  border-radius: var(--shape-full);
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.layout-switch-pill {
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 6px 14px;
+  border-radius: var(--shape-full);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--motion-duration-short) var(--motion-spring-bouncy);
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.layout-switch-pill:hover {
+  color: var(--md-sys-color-on-surface);
+}
+
+.layout-switch-pill:active {
+  transform: scale(0.94);
+}
+
+.layout-switch-pill.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--elevation-1);
+}
+
+/* ==========================================================================
+   Uniform Circular Buttons in App Bar (40px x 40px circles)
+   ========================================================================== */
+.icon-pill-btn {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%; /* Pure circle */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color var(--motion-duration-short) ease,
+              transform var(--motion-duration-short) var(--motion-spring-bouncy),
+              color var(--motion-duration-short) ease;
+}
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background-color var(--motion-duration-short) ease,
+              transform var(--motion-duration-short) var(--motion-spring-bouncy),
+              color var(--motion-duration-short) ease;
+}
+
+.icon-pill-btn:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+.icon-pill-btn:active {
+  transform: scale(0.9);
+}
+
+.icon-pill-btn.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.history-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: var(--md-sys-color-tertiary);
+  color: var(--md-sys-color-on-tertiary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: var(--shape-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* Palette Dropdown Menu */
+.theme-menu-container {
+  position: relative;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--md-sys-color-surface-container-highest);
+  border-radius: var(--shape-lg);
+  box-shadow: var(--elevation-4);
+  padding: 8px;
+  min-width: 170px;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  animation: fadeInDown 200ms var(--motion-spring-bouncy);
+}
+
+.theme-dropdown.show {
+  display: flex;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--shape-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms ease;
+}
+
+.theme-option:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.theme-option.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.theme-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.theme-dropdown-section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--md-sys-color-outline);
+  padding: 6px 12px 2px 12px;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.theme-dropdown-divider {
+  height: 1px;
+  background-color: var(--md-sys-color-outline-variant);
+  margin: 4px 6px;
+}
+
+.theme-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--shape-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms ease;
+}
+
+.theme-mode-option:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.theme-mode-option.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* ==========================================================================
+   Expressive Multi-line Display Section
+   ========================================================================== */
+.calculator-display-container {
+  padding: 24px 28px 16px 28px;
+  background-color: var(--md-sys-color-surface-container-low);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Indicators bar (Deg/Rad, Memory active) */
+.display-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 28px;
+}
+
+.mode-pills-group {
+  display: inline-flex;
+  background-color: var(--md-sys-color-surface-container-highest);
+  border-radius: var(--shape-full);
+  padding: 2px;
+  gap: 2px;
+}
+
+.mode-pill {
+  border: none;
+  background: transparent;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: var(--shape-full);
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  transition: all var(--motion-duration-short) ease;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.mode-pill.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--elevation-1);
+}
+
+.memory-status-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  background-color: var(--md-sys-color-primary-container);
+  padding: 2px 10px;
+  border-radius: var(--shape-full);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all var(--motion-duration-medium) var(--motion-spring-bouncy);
+}
+
+.memory-status-badge.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* History Expression row */
+.display-history {
+  min-height: 24px;
+  font-size: 1.05rem;
+  color: var(--md-sys-color-on-surface-variant);
+  text-align: right;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  font-variation-settings: 'ROND' 100, 'wght' 400;
+}
+.display-history::-webkit-scrollbar {
+  display: none;
+}
+
+/* Main active expression row */
+.display-input-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.display-input-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.display-input {
+  font-size: 3rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+  text-align: right;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+  transition: font-size 150ms ease;
+}
+
+.display-input.compact {
+  font-size: 2.2rem;
+}
+
+.display-input.ultra-compact {
+  font-size: 1.6rem;
+}
+
+/* Blinking pill cursor */
+.blinking-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 2.4rem;
+  background-color: var(--md-sys-color-primary);
+  border-radius: var(--shape-full);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 1s infinite ease-in-out;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Live preview computed result */
+.display-preview {
+  min-height: 28px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+  text-align: right;
+  letter-spacing: -0.01em;
+  transition: all var(--motion-duration-short) ease;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+}
+
+/* Expressive error state with shake */
+.error-banner {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  padding: 6px 14px;
+  border-radius: var(--shape-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  position: absolute;
+  bottom: 8px;
+  left: 28px;
+  animation: shake 350ms cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.error-banner.show {
+  display: inline-flex;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* ==========================================================================
+   Memory Toolbar
+   ========================================================================== */
+.memory-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 24px;
+  background-color: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.memory-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.memory-pill {
+  border: none;
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 6px 14px;
+  border-radius: var(--shape-full);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--motion-duration-short) var(--motion-spring-bouncy);
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+  white-space: nowrap;
+}
+
+.memory-pill:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+.memory-pill:active {
+  transform: scale(0.92);
+}
+
+.memory-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ==========================================================================
+   Keypad Layout (Dual-panel desktop, responsive adaptive mobile)
+   ========================================================================== */
+.calculator-keypad {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 16px;
+  padding: 20px 24px 28px 24px;
+  background-color: var(--md-sys-color-surface-container);
+  transition: all var(--motion-duration-medium) var(--motion-spring-bouncy);
+}
+
+/* ==========================================================================
+   Basic Calculator Mode (Single Keypad, Perfectly Centered & Compact)
+   ========================================================================== */
+.calculator-app[data-calc-mode="basic"] {
+  max-width: 420px;
+  margin: 0 auto;
+  transition: max-width var(--motion-duration-long) var(--motion-spring-subtle);
+}
+
+/* Header in Basic Mode: Clean 2-row layout without crowding */
+.calculator-app[data-calc-mode="basic"] .app-header {
+  flex-wrap: wrap;
+  padding: 14px 18px 12px 18px;
+  gap: 12px 8px;
+}
+
+.calculator-app[data-calc-mode="basic"] .brand-title {
+  font-size: 1.05rem;
+  gap: 8px;
+}
+
+.calculator-app[data-calc-mode="basic"] .brand-badge {
+  display: none !important; /* Hide badge to keep row 1 clean and spacious */
+}
+
+.calculator-app[data-calc-mode="basic"] .header-controls {
+  gap: 6px;
+}
+
+.calculator-app[data-calc-mode="basic"] .layout-segmented-switch {
+  order: 3;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.calculator-app[data-calc-mode="basic"] .layout-switch-pill {
+  flex: 1;
+  justify-content: center;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+}
+
+/* Display in Basic Mode: Hide unneeded scientific angle indicators */
+.calculator-app[data-calc-mode="basic"] .calculator-display-container {
+  padding: 20px 22px 14px 22px;
+}
+
+.calculator-app[data-calc-mode="basic"] .mode-pills-group {
+  display: none !important;
+}
+
+.calculator-app[data-calc-mode="basic"] .display-status-bar {
+  min-height: 20px;
+  justify-content: flex-end;
+}
+
+.calculator-app[data-calc-mode="basic"] .display-input {
+  font-size: 2.9rem;
+}
+
+/* Memory Toolbar in Basic Mode: evenly spaced */
+.calculator-app[data-calc-mode="basic"] .memory-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 18px;
+  gap: 6px;
+}
+
+.calculator-app[data-calc-mode="basic"] .memory-pill {
+  flex: 1;
+  text-align: center;
+  padding: 6px 4px;
+  font-size: 0.8rem;
+}
+
+/* Keypad in Basic Mode: single standard 4-column panel with generous buttons */
+.calculator-app[data-calc-mode="basic"] .calculator-keypad {
+  grid-template-columns: 1fr;
+  padding: 16px 18px 24px 18px;
+  gap: 12px;
+}
+
+.calculator-app[data-calc-mode="basic"] .scientific-panel {
+  display: none !important;
+}
+
+.calculator-app[data-calc-mode="basic"] .scientific-toggle-bar {
+  display: none !important;
+}
+
+.calculator-app[data-calc-mode="basic"] .standard-panel {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calculator-app[data-calc-mode="basic"] .m3-btn {
+  height: 60px;
+  font-size: 1.35rem;
+}
+
+.calculator-app[data-calc-mode="basic"] .m3-btn-number {
+  font-size: 1.55rem;
+}
+
+.calculator-app[data-calc-mode="basic"] .m3-btn-operator {
+  font-size: 1.65rem;
+}
+
+/* Sub-panels */
+.scientific-panel {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.standard-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Material 3 Expressive Button Types
+   ========================================================================== */
+.m3-btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--shape-full);
+  font-family: var(--font-family-base);
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+  transition: transform 120ms var(--motion-spring-bouncy),
+              background-color 150ms ease,
+              box-shadow 150ms ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.m3-btn:active {
+  transform: scale(0.92);
+}
+
+/* 1. Numeric & Decimal keys: Surface Container High */
+.m3-btn-number {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  font-size: 1.45rem;
+  font-weight: 600;
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+}
+.m3-btn-number:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* 2. Primary Arithmetic Operators (+ - × ÷): Secondary Container */
+.m3-btn-operator {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-size: 1.55rem;
+  font-weight: 700;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+.m3-btn-operator:hover {
+  filter: brightness(1.05);
+}
+
+/* 3. Scientific functions: Tonal Surface / Tertiary Container subtle */
+.m3-btn-scientific {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.98rem;
+  font-weight: 600;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  font-variation-settings: 'ROND' 100, 'wght' 600;
+}
+.m3-btn-scientific:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+/* 4. Action Keys (AC, C, Backspace): Error container or High Tonal */
+.m3-btn-action {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+.m3-btn-action:hover {
+  filter: brightness(1.04);
+}
+
+.m3-btn-clear {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  font-weight: 700;
+}
+
+/* 5. Equals Action (=): Primary Filled Container with High Elevation */
+.m3-btn-equals {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  box-shadow: var(--elevation-2);
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+.m3-btn-equals:hover {
+  box-shadow: var(--elevation-3);
+  filter: brightness(1.08);
+}
+.m3-btn-equals:active {
+  transform: scale(0.92);
+}
+
+/* Inverse Toggle Active State */
+.m3-btn.inv-active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Subscript and superscript formatting in keys */
+sup, sub {
+  font-size: 0.65em;
+  font-weight: 700;
+  margin-left: 1px;
+}
+
+/* ==========================================================================
+   Material 3 Touch Ripple Effect
+   ========================================================================== */
+.m3-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: rippleAnimation 500ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  background-color: currentColor;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+@keyframes rippleAnimation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   History Drawer / Side Sheet
+   ========================================================================== */
+.history-drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-medium) var(--motion-easing-standard);
+}
+
+.history-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  max-width: 90vw;
+  height: 100%;
+  background-color: var(--md-sys-color-surface-container-high);
+  box-shadow: var(--elevation-5);
+  z-index: 210;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--motion-duration-long) var(--motion-spring-subtle);
+  border-top-left-radius: var(--shape-xl);
+  border-bottom-left-radius: var(--shape-xl);
+  border-left: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.history-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+  color: var(--md-sys-color-on-surface);
+}
+
+.drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-item {
+  background-color: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--shape-lg);
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all var(--motion-duration-short) ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+}
+
+.history-item:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-1);
+}
+
+.history-item-expr {
+  font-size: 0.92rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-variation-settings: 'ROND' 100, 'wght' 400;
+}
+
+.history-item-result {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'ROND' 100, 'wght' 700;
+}
+
+.history-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--md-sys-color-on-surface-variant);
+  gap: 12px;
+  text-align: center;
+  padding: 32px;
+}
+
+.history-empty-icon {
+  font-size: 48px;
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   Help & Shortcuts Modal
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 200ms ease;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal-card {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--shape-2xl);
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--elevation-5);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  animation: scaleUp 250ms var(--motion-spring-bouncy);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.shortcut-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--md-sys-color-surface-container);
+  padding: 8px 12px;
+  border-radius: var(--shape-sm);
+  font-size: 0.88rem;
+}
+
+kbd {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-primary);
+  padding: 2px 8px;
+  border-radius: var(--shape-xs);
+  font-family: var(--font-family-mono);
+  font-weight: 600;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  font-size: 0.8rem;
+}
+
+/* Device Dark Mode Inspector Card */
+.device-info-card {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--shape-lg);
+  padding: 16px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.device-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+}
+
+.device-info-label {
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.device-info-badge {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--shape-full);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.device-info-val {
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+}
+
+/* Floating Toast Notification */
+.toast-notice {
+  position: fixed;
+  bottom: 24px;
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 10px 20px;
+  border-radius: var(--shape-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--elevation-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all var(--motion-duration-medium) var(--motion-spring-bouncy);
+  z-index: 500;
+}
+
+.toast-notice.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Tablet & Mobile (under 860px) */
+@media (max-width: 860px) {
+  body {
+    padding: 8px;
+  }
+
+  .calculator-app {
+    max-width: 480px;
+    border-radius: var(--shape-xl);
+  }
+
+  .app-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .layout-segmented-switch {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .layout-switch-pill {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .calculator-keypad {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .scientific-toggle-bar {
+    display: flex !important;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+
+  .scientific-panel {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    animation: fadeIn 200ms ease;
+  }
+
+  .scientific-panel.expanded {
+    display: grid;
+  }
+
+  .m3-btn {
+    height: 52px;
+    font-size: 1.15rem;
+  }
+
+  .m3-btn-number {
+    font-size: 1.35rem;
+  }
+
+  .display-input {
+    font-size: 2.5rem;
+  }
+}
+
+/* Small mobile (under 420px) */
+@media (max-width: 420px) {
+  body {
+    padding: 0;
+    justify-content: flex-start;
+  }
+
+  .calculator-app {
+    border-radius: 0;
+    border: none;
+    min-height: 100vh;
+  }
+
+  .m3-btn {
+    height: 48px;
+    font-size: 1.05rem;
+  }
+
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .calculator-display-container {
+    padding: 16px;
+  }
+}
